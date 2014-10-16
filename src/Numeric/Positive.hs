@@ -29,6 +29,7 @@ instance Read Positive where
 instance Integral Positive where
   toInteger (Positive a) = toInteger a
   Positive a `quotRem` Positive b = (fromIntegral $ a `quot` b, fromIntegral $ a `rem` b)
+  Positive a `divMod` Positive b  = (fromIntegral $ a `div` b, fromIntegral $ a `mod` b)
 
 instance Enum Positive where
   toEnum   = fromIntegral
