@@ -3,9 +3,13 @@
 
 module Numeric.Positive (
         Positive,
-        positive
+        positive,
+        nonEmptyLength,
   ) where
+
 import Numeric.Natural
+import Data.Semigroup
+import qualified Data.List.NonEmpty as NonEmpty
 
 newtype Positive = Positive { getPositive :: Natural } deriving
     ( 
@@ -54,3 +58,13 @@ instance Num Positive where
 positive :: a -> (a -> a) -> Positive -> a
 positive a f 1 = f a
 positive a f n = f (positive a f $ pred n)
+
+nonEmptyLength :: NonEmpty.NonEmpty a -> Positive
+nonEmptyLength = fromIntegral . NonEmpty.length
+
+-- _positive :: Integral a => Prism' a Positive
+-- _positive :: prism' fromIntegral (\x -> if x > 0 then Just (fromInteger x :: Positive) else Nothing)
+
+-- _nonEmpty :: Prism [a] [b] (NonEmpty a) (NonEmpty b)
+-- _nonEmpty :: prism' NonEmpty.toList (\x -> if lenght x > 0 then Just (NonEmpty.fromList x) else Nothing)
+
