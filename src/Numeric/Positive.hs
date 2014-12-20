@@ -16,12 +16,12 @@ newtype Positive = Positive { getPositive :: Natural } deriving
     Eq,
     Ord,
     -- Data,
-    Real,
+    Real
     -- Ix,
     -- Typeable,
     -- Bits,
     -- Hashable,
-    Whole
+    -- Whole
     )
 
 instance Show Positive where
@@ -67,4 +67,3 @@ nonEmptyLength = fromIntegral . NonEmpty.length
 
 -- _nonEmpty :: Prism [a] [b] (NonEmpty a) (NonEmpty b)
 -- _nonEmpty :: prism' NonEmpty.toList (\x -> if lenght x > 0 then Just (NonEmpty.fromList x) else Nothing)
-
