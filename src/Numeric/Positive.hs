@@ -1,5 +1,5 @@
 
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE Safe #-}
 
 module Numeric.Positive (
         Positive,
@@ -12,17 +12,19 @@ import Data.Semigroup
 import qualified Data.List.NonEmpty as NonEmpty
 
 newtype Positive = Positive { getPositive :: Natural } deriving
-    ( 
+    (
     Eq,
-    Ord,
+    Ord
     -- Data,
-    Real
     -- Ix,
     -- Typeable,
     -- Bits,
     -- Hashable,
     -- Whole
     )
+
+instance Real Positive where
+  toRational = toRational . getPositive
 
 instance Show Positive where
   show (Positive n) = show n
@@ -38,7 +40,7 @@ instance Integral Positive where
 instance Enum Positive where
   toEnum   = fromIntegral
   fromEnum = fromIntegral
-  
+
 instance Num Positive where
   Positive n + Positive m = Positive (n + m)
   Positive n * Positive m = Positive (n * m)
